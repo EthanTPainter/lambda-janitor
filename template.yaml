@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Lambda to cleanup lambda versions
+
+Parameters:
+  VersionsToKeep:
+    Type: Number
+    Description: How many versions to keep, even if they are not aliased.
+    Default: 2
+    MinValue: 0 # 0 means don't keep anything except $Latest
+
+Resources:
+  JanitorLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: functions/clean.handler
+      Runtime: nodejs14.x
+      Timeout: 900
+      Environment:
+        Variables:
+          LOG_LEVEL: INFO
+          VERSIONS_TO_KEEP: !Ref VersionsToKeep
+          AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+      Policies:
+        - Statement:
+            Effect: Allow
+            Action:
+              - lambda:DeleteFunction
+              - lambda:List*
+            Resource: "*"
+      Events:
+        CleanScheduledEvent:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 day)
+
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${JanitorLambda}
+
+Outputs:
+  JanitorLambdaName:
+    Value: !Ref JanitorLambda
+    Description: Logical ID for the janitor lambda
+  JanitorLambdaArn:
+    Value: !GetAtt JanitorLambda.Arn
+    Description: Arn for the janitor lambda
