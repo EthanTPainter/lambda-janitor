@@ -13,6 +13,8 @@ Resources:
   JanitorLambda:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: janitor-lambda
+      Description: Lambda to cleanup older, unused versions of lambdas
       Handler: functions/clean.handler
       Runtime: nodejs14.x
       Timeout: 900
