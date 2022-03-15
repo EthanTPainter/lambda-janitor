@@ -1,0 +1,20 @@
+{
+    "name": "lambda-janitor",
+    "private": true,
+    "version": "0.0.1",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "package": "sam package --template-file template.yml --output-template-file packaged.yml --s3-bucket sar-lambda-janitor",
+        "publish": "sam publish --template packaged.yml --region us-east-1"
+    },
+    "author": "Lumigo LTD (https://lumigo.io)",
+    "license": "Apache 2",
+    "dependencies": {
+        "async-retry": "^1.2.3",
+        "aws-sdk": "^2.814.0"
+    },
+    "devDependencies": {
+        "lodash": "^4.17.21"
+    }
+}
