@@ -1,5 +1,5 @@
 # lambda-janitor
-Cleanup lambda versions to remove older versions when unnecessary.
+Lambda to clean up older lambda versions to available code storage.
 
 ## Prerequisites 
 The expected runtime is nodejs14.x (14.19.0 LTS version). Users should have this version installed to test locally.
