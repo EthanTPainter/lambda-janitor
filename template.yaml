@@ -17,7 +17,7 @@ Resources:
       Description: Lambda to cleanup older, unused versions of lambdas
       Handler: src/clean.handler
       Runtime: nodejs14.x
-      Timeout: 900
+      Timeout: 600
       Environment:
         Variables:
           LOG_LEVEL: INFO
