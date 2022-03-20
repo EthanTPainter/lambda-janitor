@@ -15,7 +15,7 @@ Resources:
     Properties:
       FunctionName: janitor-lambda
       Description: Lambda to cleanup older, unused versions of lambdas
-      Handler: clean.handler
+      Handler: src/clean.handler
       Runtime: nodejs14.x
       Timeout: 900
       Environment:
